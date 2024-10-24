@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane; 
+import javax.swing.JScrollPane;  
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,11 +16,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
 
+
+
 class App  {
     private JFrame frame; 
     private JPanel content_panel, north, btn_panel, clear_panel;
     protected JPanel display_panel; 
-    private JButton add_btn, ping_btn, clear_btn; 
+    private JButton add_btn, ping_btn, clear_btn;
+    private JScrollPane scroll_pane; 
     private JLabel title, message; 
     private JTextField textField;
     private String[] add_messages;
@@ -43,6 +47,7 @@ class App  {
         this.btn_panel = new JPanel(); 
         this.display_panel = new JPanel(); //handles display of results from ping
         this.clear_panel = new JPanel(); 
+        this.scroll_pane = new JScrollPane(display_panel); 
         this.add_btn = new JButton("add"); 
         this.ping_btn = new JButton("ping"); 
         this.clear_btn = new JButton("clear");
@@ -57,7 +62,7 @@ class App  {
     private void createGui() { 
 
         /*
-         * Format Components
+         * Format Componentsbrave 
          */
         title.setFont(new Font("Arial", Font.BOLD, 28));
         title.setBorder(new EmptyBorder(10,10,10,10));
@@ -75,10 +80,12 @@ class App  {
         display_panel.setLayout(new BoxLayout(display_panel, BoxLayout.Y_AXIS));
         display_panel.setBorder(new EmptyBorder(10,10,10,10)); 
 
+        scroll_pane.setBorder(null); 
+
         /* 
          * Add Components 
          */
-        btn_panel.add(add_btn); 
+        // btn_panel.add(add_btn); 
         btn_panel.add( ping_btn);
 
         north.add(title); 
@@ -88,7 +95,7 @@ class App  {
         clear_panel.add(clear_btn); 
 
         content_panel.add(north, BorderLayout.NORTH); 
-        content_panel.add(display_panel, BorderLayout.CENTER); 
+        content_panel.add(scroll_pane, BorderLayout.CENTER); 
         content_panel.add(clear_panel, BorderLayout.SOUTH);
 
         /*
@@ -123,35 +130,23 @@ class App  {
                 }
 
                 if(btn_clicked == ping_btn){
-                    
-                    if(net.validateAddress(textField.getText()))
+                    String user_input = textField.getText(); 
+                    if(net.validateAddress(user_input))
                     {
-                        print("true"); 
-                        // JOptionPane.showMessageDialog(frame, "Address is ");
-                    }else {
-                        String pingRes = net.ping("www.google.com", 1000) ? " is reachable" : "is not reachable";
+                        clearDisplay(); 
+                        String pingRes = net.ping(user_input, 1000) ? " is reachable" : "is not reachable";
                         String hostname = net.getHost();
                         createLabel(hostname + pingRes);
                         print("false");
+                    }else {
+                        JOptionPane.showMessageDialog(frame, "Invalid Address", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     
                 }
 
                 if(btn_clicked == clear_btn) 
                 {
-                   print("inside actionPerformed"); 
-                  try {
-                    Component[] components = display_panel.getComponents();
-                    for(Component c : components)
-                    { 
-                        display_panel.remove(c);
-                    }
-                    display_panel.repaint(); 
-                    display_panel.revalidate(); 
-                  } catch(Exception ex) 
-                  {
-                    ex.printStackTrace();
-                  }
+                    clearDisplay(); 
                 }
 
             }
@@ -161,6 +156,21 @@ class App  {
         ping_btn.addActionListener(ears); 
         clear_btn.addActionListener(ears); 
         
+    }
+
+    void clearDisplay() { 
+        try {
+            Component[] components = display_panel.getComponents();
+            for(Component c : components)
+            { 
+                display_panel.remove(c);
+            }
+            display_panel.repaint(); 
+            display_panel.revalidate(); 
+          } catch(Exception ex) 
+          {
+            ex.printStackTrace();
+          }
     }
 
     void createLabel(String str) 
