@@ -1,4 +1,3 @@
-import java.net.Inet4Address;
 import java.net.InetAddress; 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,6 +8,7 @@ class Net{
     private String host; 
     //Regular Expression for IP Address 
     private final String REGEX_IP = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$";
+    private final String REGEX_COMPUTER_NAME = "^(?![0-9]{1,15}$)[a-zA-Z0-9-]{1,15}$";
 
     boolean ping(String addr, int duration)
      { //addr = address
@@ -20,7 +20,6 @@ class Net{
         {
             e.printStackTrace(); 
         }
-
         return false;
     }
 
@@ -31,14 +30,15 @@ class Net{
 
     boolean validateAddress(String addr){
         try { 
- 
-            Pattern test_pattern = Pattern.compile(REGEX_IP);
-            Matcher test_matcher = test_pattern.matcher(addr); 
+            Pattern hostname_pattern = Pattern.compile(REGEX_COMPUTER_NAME);
+            Pattern ip_pattern = Pattern.compile(REGEX_IP);
+            Matcher hostname_matcher = hostname_pattern.matcher(addr); 
+            Matcher ip_matcher = ip_pattern.matcher(addr); 
 
-            if(test_matcher.find()) {
+            if(hostname_matcher.find() || ip_matcher.find()) {
                 return true;
             }
-        }catch(PatternSyntaxException pe)
+        }catch(PatternSyntaxException pe) // pe -> pattern exception
         {
             pe.printStackTrace();
         }

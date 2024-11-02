@@ -6,44 +6,47 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane; 
-import javax.swing.JScrollPane;  
+import javax.swing.JScrollPane;
+
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font; 
+import java.awt.Font;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionListener; 
 import java.awt.event.ActionEvent;
 import java.awt.Component;
 
-
-
 class App  {
     private JFrame frame; 
     private JPanel content_panel, north, btn_panel, clear_panel;
-    protected JPanel display_panel; 
+    protected JPanel display_panel, input_wrap; 
     private JButton add_btn, ping_btn, clear_btn;
     private JScrollPane scroll_pane; 
-    private JLabel title, message; 
+    private JLabel title, message, input_label; 
     private JTextField textField;
-    private String[] add_messages;
-    private JOptionPane pane;
-    private String address; 
-
-    interface AppActions {
-        public void showMessage(String message); 
-    }
 
     /* 
      * Initialize Components 
      */
     App(String title) 
     {
+        init(title);
+        createGui(); //create components and put things together
+        addListeners(); //add action listeners to components and handle actions 
+    }
+
+    App() {this("Building");}
+
+    private void init(String title) {
         this.title = new JLabel(title);
+        this.input_label = new JLabel("Hostname / IP: "); 
         this.frame = new JFrame();
         this.textField = new JTextField();
         this.content_panel = new JPanel();
         this.north = new JPanel(); 
+        this.input_wrap = new JPanel(); 
         this.btn_panel = new JPanel(); 
         this.display_panel = new JPanel(); //handles display of results from ping
         this.clear_panel = new JPanel(); 
@@ -51,25 +54,27 @@ class App  {
         this.add_btn = new JButton("add"); 
         this.ping_btn = new JButton("ping"); 
         this.clear_btn = new JButton("clear");
-        this.add_messages = new String[]{"Item added", "Item exists!", "Invalid Input"}; // message return when add button is clicked 
-
-        createGui(); //create components and put things together
-        addListeners(); //add action listener to components and handle actions 
     }
-
-    App() {this("Building");}
 
     private void createGui() { 
 
         /*
-         * Format Componentsbrave 
+         * Format Components
          */
+
         title.setFont(new Font("Arial", Font.BOLD, 28));
         title.setBorder(new EmptyBorder(10,10,10,10));
         title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
+        input_wrap.setLayout(new FlowLayout());
+        input_label.setFont(new Font("Arial", Font.BOLD, 10));
+
+        ping_btn.setFont(new Font("Arial", Font.BOLD, 10));
+        clear_btn.setFont(new Font("Arial", Font.BOLD, 10));
+
         textField.setBorder(new EmptyBorder(5,5,5,5));
         textField.setFont(new Font("Consolas", Font.PLAIN, 14));
+        textField.setPreferredSize(new Dimension(300,30)); 
 
         north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
 
@@ -80,19 +85,27 @@ class App  {
         display_panel.setLayout(new BoxLayout(display_panel, BoxLayout.Y_AXIS));
         display_panel.setBorder(new EmptyBorder(10,10,10,10)); 
 
-        scroll_pane.setBorder(null); 
+        scroll_pane.setBorder(null);  
 
+          /*
+         * Date picker
+         */
+
+         input_wrap.add(input_label); 
+         input_wrap.add(textField); 
+         
         /* 
          * Add Components 
          */
         // btn_panel.add(add_btn); 
         btn_panel.add( ping_btn);
+        btn_panel.add( ping_btn);
 
         north.add(title); 
-        north.add(textField);
+        north.add(input_wrap);        
         north.add(btn_panel);
 
-        clear_panel.add(clear_btn); 
+        clear_panel.add(clear_btn);
 
         content_panel.add(north, BorderLayout.NORTH); 
         content_panel.add(scroll_pane, BorderLayout.CENTER); 
@@ -101,18 +114,19 @@ class App  {
         /*
          * Format Frame
          */
-        frame.setTitle("PingFeed");
+        frame.setTitle("PingFeed Beta");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(content_panel); 
         frame.setResizable(false); 
         frame.pack();
         frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        frame.setVisible(true); 
 
     }
     /*
      * Action Listener
      */
+    
     private void addListeners() {
         Net net = new Net(); 
         ActionListener ears = new ActionListener(){
@@ -121,20 +135,13 @@ class App  {
             public void actionPerformed(ActionEvent e) {
                 JButton btn_clicked = (JButton) e.getSource(); 
                 btn_clicked = (JButton) e.getSource();
-                
-                if(btn_clicked == add_btn) 
-                {
-                    String pingRes = net.ping("www.google.com", 1000) ? " is reachable" : "is not reachable";
-                    String hostname = net.getHost();
-                    createLabel(hostname + pingRes); 
-                }
 
                 if(btn_clicked == ping_btn){
                     String user_input = textField.getText(); 
                     if(net.validateAddress(user_input))
                     {
                         clearDisplay(); 
-                        String pingRes = net.ping(user_input, 1000) ? " is reachable" : "is not reachable";
+                        String pingRes = net.ping(user_input, 500) ? " is reachable" : " is not reachable";
                         String hostname = net.getHost();
                         createLabel(hostname + pingRes);
                         print("false");
