@@ -4,10 +4,11 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 class Net{   
-    
+
     private String host; 
     //Regular Expression for IP Address 
     private final String REGEX_IP = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$";
+    //updated to support hostnames 
     private final String REGEX_COMPUTER_NAME = "^(?![0-9]{1,15}$)[a-zA-Z0-9-]{1,15}$";
 
     boolean ping(String addr, int duration)
@@ -30,12 +31,12 @@ class Net{
 
     boolean validateAddress(String addr){
         try { 
-            Pattern hostname_pattern = Pattern.compile(REGEX_COMPUTER_NAME);
+            Pattern hostname_pattern = Pattern.compile(REGEX_COMPUTER_NAME); //pattern for hostnames 
             Pattern ip_pattern = Pattern.compile(REGEX_IP);
-            Matcher hostname_matcher = hostname_pattern.matcher(addr); 
+            Matcher hostname_matcher = hostname_pattern.matcher(addr); //regex matcher for hostnames
             Matcher ip_matcher = ip_pattern.matcher(addr); 
 
-            if(hostname_matcher.find() || ip_matcher.find()) {
+            if(hostname_matcher.find() || ip_matcher.find()) { //added hostname condition 
                 return true;
             }
         }catch(PatternSyntaxException pe) // pe -> pattern exception
