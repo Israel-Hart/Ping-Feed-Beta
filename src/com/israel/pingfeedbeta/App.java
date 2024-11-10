@@ -1,3 +1,8 @@
+/*
+* realized java apps run faster when 
+* import statement include only required files than everything ("*")
+*/
+
 import javax.swing.JPanel; 
 import javax.swing.JFrame;
 import javax.swing.JButton; 
@@ -19,6 +24,9 @@ import java.awt.event.ActionEvent;
 import java.awt.Component;
 
 class App  {
+    /*
+    * Components Declarations 
+    */
     private JFrame frame; 
     private JPanel content_panel, north, btn_panel, clear_panel;
     protected JPanel display_panel, input_wrap; 
@@ -61,7 +69,6 @@ class App  {
         /*
          * Format Components
          */
-
         title.setFont(new Font("Arial", Font.BOLD, 28));
         title.setBorder(new EmptyBorder(10,10,10,10));
         title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
@@ -161,8 +168,7 @@ class App  {
 
         add_btn.addActionListener(ears); 
         ping_btn.addActionListener(ears); 
-        clear_btn.addActionListener(ears); 
-        
+        clear_btn.addActionListener(ears);    
     }
 
     void clearDisplay() { 
@@ -188,7 +194,7 @@ class App  {
          display_panel.add(message);
          display_panel.revalidate(); 
     }
-
+// shortcut to print 
     void print(String message) { 
         System.out.println(message); 
     }
