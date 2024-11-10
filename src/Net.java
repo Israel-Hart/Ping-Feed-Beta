@@ -1,3 +1,5 @@
+// handle pinging and input validation 
+
 import java.net.InetAddress; 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
