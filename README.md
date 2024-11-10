@@ -2,10 +2,10 @@
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Israel-Hart/Ping-Feed-Beta)
 ![GitHub contributors](https://img.shields.io/github/contributors/Israel-Hart/Ping-Feed-Beta)
-![GitHub stars](https://img.shields.io/github/stars/your-username/project-name?style=social)
-![GitHub forks](https://img.shields.io/github/forks/your-username/project-name?style=social)
-![GitHub issues](https://img.shields.io/github/issues/your-username/project-name)
-![GitHub license](https://img.shields.io/github/license/your-username/project-name)
+![GitHub stars](https://img.shields.io/github/stars/Israel-Hart/Ping-Feed-Beta?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Israel-Hart/Ping-Feed-Beta?style=social)
+![GitHub issues](https://img.shields.io/github/issues/Israel-Hart/Ping-Feed-Beta)
+![GitHub license](https://img.shields.io/github/license/Israel-Hart/Ping-Feed-Beta)
 
 A desktop-based GUI application that allows users to ping IP addresses and hostnames to check if they are online within a network.
 
