@@ -16,8 +16,12 @@ A desktop-based GUI application that allows users to ping IP addresses and hostn
  [Features](#features)
  
  [Getting Started](#getting-started)
+  
+ [Installation](#installation)
  
  [Usage](#usage)
+
+ [License](#license)
 
 
 ## About
