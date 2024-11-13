@@ -2,10 +2,10 @@
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Israel-Hart/Ping-Feed-Beta)
 ![GitHub contributors](https://img.shields.io/github/contributors/Israel-Hart/Ping-Feed-Beta)
-![GitHub stars](https://img.shields.io/github/stars/your-username/project-name?style=social)
-![GitHub forks](https://img.shields.io/github/forks/your-username/project-name?style=social)
-![GitHub issues](https://img.shields.io/github/issues/your-username/project-name)
-![GitHub license](https://img.shields.io/github/license/your-username/project-name)
+![GitHub stars](https://img.shields.io/github/stars/Israel-Hart/Ping-Feed-Beta?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Israel-Hart/Ping-Feed-Beta?style=social)
+![GitHub issues](https://img.shields.io/github/issues/Israel-Hart/Ping-Feed-Beta)
+![GitHub license](https://img.shields.io/github/license/Israel-Hart/Ping-Feed-Beta)
 
 A desktop-based GUI application that allows users to ping IP addresses and hostnames to check if they are online within a network.
 
@@ -18,12 +18,7 @@ A desktop-based GUI application that allows users to ping IP addresses and hostn
  [Getting Started](#getting-started)
  
  [Usage](#usage)
- 
- [Contributing](#contributing)
- 
- [License](#license)
- 
- [Contact](#contact)
+
 
 ## About
 
@@ -80,5 +75,13 @@ This project is a GUI-based network utility tool designed to help users quickly 
 3. **View Status**:
     - The GUI will show the status (reachable or unreachable) for the host.
 
+## License
 
+This project is licensed under the MIT License. This means:
+
+- **Permissions**: Free to use, modify, and distribute, including for commercial purposes.
+- **Conditions**: A copy of this license must be included with substantial portions of the software.
+- **Limitations**: The software is provided "as is," without warranty of any kind.
+
+For the full license text, please see the [LICENSE](LICENSE) file.
 
