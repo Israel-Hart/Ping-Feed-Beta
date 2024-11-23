@@ -133,15 +133,14 @@ class App  {
         frame.setIconImage(icon);
         frame.pack();
         frame.setLocationRelativeTo(null);
-        frame.setVisible(true); 
-
+        frame.setVisible(true);
     }
     /*
      * Action Listener
      */
     
     private void addListeners() {
-        Net net = new Net(); 
+        Net net = new Net();
         ActionListener ears = new ActionListener(){
 
             @Override 
@@ -150,18 +149,26 @@ class App  {
                 btn_clicked = (JButton) e.getSource();
 
                 if(btn_clicked == ping_btn){
-                    String user_input = textField.getText(); 
+                    String user_input = textField.getText();
+
+                    //check for empty text field
+                    if(user_input.isEmpty())
+                    {
+                        JOptionPane.showMessageDialog(frame, "Address cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
                     if(net.validateAddress(user_input))
                     {
                         clearDisplay(); 
                         String pingRes = net.ping(user_input, 500) ? " is reachable" : " is not reachable";
                         String hostname = net.getHost();
-                        createLabel(hostname + pingRes);
-                        print("false");
+
+                        //checks if host is found
+                        createLabel(hostname == null ? user_input + pingRes : hostname + pingRes);
                     }else {
                         JOptionPane.showMessageDialog(frame, "Invalid Address", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                    
                 }
 
                 if(btn_clicked == clear_btn) 

@@ -1,9 +1,13 @@
 // handle pinging and input validation 
 
-import java.net.InetAddress; 
+import java.io.IOException;
+import java.net.InetAddress;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import java.net.UnknownHostException;
+
+
 
 class Net{   
 
@@ -19,9 +23,12 @@ class Net{
             InetAddress address = InetAddress.getByName(addr);
             host = address.getHostName();
             return address.isReachable(duration); 
-        }catch(Exception e )
+        }catch(UnknownHostException uh)
         {
-            e.printStackTrace(); 
+            System.out.println("The host was not found on the network.");
+        }catch(IOException io)
+        {
+            System.out.println("An io exception occured!");
         }
         return false;
     }
@@ -31,19 +38,19 @@ class Net{
         return res;  
     }
 
-    boolean validateAddress(String addr){
+    boolean validateAddress(String addr) {
         try { 
             Pattern hostname_pattern = Pattern.compile(REGEX_COMPUTER_NAME); //pattern for hostnames 
             Pattern ip_pattern = Pattern.compile(REGEX_IP);
             Matcher hostname_matcher = hostname_pattern.matcher(addr); //regex matcher for hostnames
             Matcher ip_matcher = ip_pattern.matcher(addr); 
 
-            if(hostname_matcher.find() || ip_matcher.find()) { //added hostname condition 
+            if(hostname_matcher.find() || ip_matcher.find()) { //added hostname condition
                 return true;
             }
-        }catch(PatternSyntaxException pe) // pe -> pattern exception
+        }catch(PatternSyntaxException pe )
         {
-            pe.printStackTrace();
+            System.out.println("Syntax not found!");
         }
         return false; 
     }
