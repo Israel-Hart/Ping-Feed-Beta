@@ -14,14 +14,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 
+import java.awt.Image;
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.FlowLayout;
-import java.awt.event.ActionListener; 
+import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Component;
 
 class App  {
     /*
@@ -34,6 +36,8 @@ class App  {
     private JScrollPane scroll_pane; 
     private JLabel title, message, input_label; 
     private JTextField textField;
+
+    private Image icon;
 
     /* 
      * Initialize Components 
@@ -62,6 +66,7 @@ class App  {
         this.add_btn = new JButton("add"); 
         this.ping_btn = new JButton("ping"); 
         this.clear_btn = new JButton("clear");
+        this.icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\Israel\\projects\\Ping-Feed-Beta\\res\\icons\\icon.png");
     }
 
     private void createGui() { 
@@ -124,7 +129,8 @@ class App  {
         frame.setTitle("PingFeed Beta");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(content_panel); 
-        frame.setResizable(false); 
+        frame.setResizable(false);
+        frame.setIconImage(icon);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true); 
